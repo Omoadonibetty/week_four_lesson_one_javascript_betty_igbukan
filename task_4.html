@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(to bottom, #87ceeb, #f0f8ff);
+        }
+
+        .weather-container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .weather-info {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .weather-info p {
+            margin: 5px 0;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="weather-container">
+        <h1>Current Weather</h1>
+        <div class="weather-info" id="weather-info">
+            Loading weather data...
+        </div>
+    </div>
+
+    <script>
+        const apiKey = 'YOUR_API_KEY'; // Replace with your OpenWeatherMap API key
+
+        const fetchWeatherData = async () => {
+            const weatherInfoDiv = document.getElementById('weather-info');
+
+            try {
+                const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=London&units=metric&appid=${apiKey}`);
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch weather data');
+                }
+
+                const data = await response.json();
+                const { name } = data;
+                const { temp } = data.main;
+                const { description } = data.weather[0];
+
+                weatherInfoDiv.innerHTML = `
+                    <p>Location: ${name}</p>
+                    <p>Temperature: ${temp} °C</p>
+                    <p>Weather: ${description}</p>
+                `;
+            } catch (error) {
+                weatherInfoDiv.innerHTML = `<p class="error">Unable to fetch weather data. Please try again later.</p>`;
+                console.error('Error fetching weather data:', error);
+            }
+        };
+
+        fetchWeatherData();
+    </script>
+
+</body>
+</html>

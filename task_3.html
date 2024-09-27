@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Info Display</title>
+    <style>
+        .user-info {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="user-container"></div>
+
+    <script>
+        const users = [
+            { firstName: 'John', lastName: 'Doe', complexion: 'Fair', occupation: 'Engineer' },
+            { firstName: 'Jane', lastName: 'Smith', complexion: 'Olive', occupation: 'Doctor' },
+            { firstName: 'Alex', lastName: 'Johnson', complexion: 'Dark', occupation: 'Designer' },
+            { firstName: 'Emily', lastName: 'Williams', complexion: 'Light', occupation: 'Artist' }
+        ];
+
+        users.forEach(user => {
+            const userDiv = document.createElement('div');
+            userDiv.classList.add('user-info');
+            userDiv.innerHTML = `
+                <p>First Name: ${user.firstName}</p>
+                <p>Last Name: ${user.lastName}</p>
+                <p>Complexion: ${user.complexion}</p>
+                <p>Occupation: ${user.occupation}</p>
+            `;
+            document.getElementById('user-container').appendChild(userDiv);
+        });
+    </script>
+</body>
+</html>
